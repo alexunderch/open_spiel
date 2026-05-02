@@ -271,10 +271,10 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     echo "Adding Python 3.11 ppa repos"
     
    # 2. Download the deadsnakes GPG key and save it to the trusted keyrings directory
-    sudo gpg --no-default-keyring --keyring /usr/share/keyrings/deadsnakes.gpg --keyserver keyserver.ubuntu.com --recv-keys F23C5A6CF475977595C89F51BA6932366A755776
+    # sudo gpg --no-default-keyring --keyring /usr/share/keyrings/deadsnakes.gpg --keyserver keyserver.ubuntu.com --recv-keys F23C5A6CF475977595C89F51BA6932366A755776
 
-    # 3. Add the repository to your sources list manually
-    echo "deb [signed-by=/usr/share/keyrings/deadsnakes.gpg] https://ppa.launchpadcontent.net/deadsnakes/ppa/ubuntu $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/deadsnakes.list
+    # # 3. Add the repository to your sources list manually
+    # echo "deb [signed-by=/usr/share/keyrings/deadsnakes.gpg] https://ppa.launchpadcontent.net/deadsnakes/ppa/ubuntu $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/deadsnakes.list
 
     # sudo add-apt-repository ppa:deadsnakes/ppa
     PYTHON_PKGS="python3.11 python3.11-dev python3-pip python3-setuptools python3-wheel python3-tk python3.11-venv"
