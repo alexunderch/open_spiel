@@ -271,11 +271,12 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     echo "Adding Python 3.11 ppa repos"
     
     UBUNTU_CODENAME=$(lsb_release -cs)
-    echo "deb http://ppa.launchpad.net/deadsnakes/ppa/ubuntu ${UBUNTU_CODENAME} main" | \
+    sudo mkdir -p /etc/apt/keyrings
+    curl -fsSL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xF23C5A6CF475977595C89F51BA6932366A755776" | \
+      sudo gpg --dearmor -o /etc/apt/keyrings/deadsnakes.gpg
+    echo "deb [signed-by=/etc/apt/keyrings/deadsnakes.gpg] \
+      http://ppa.launchpad.net/deadsnakes/ppa/ubuntu ${UBUNTU_CODENAME} main" | \
       sudo tee /etc/apt/sources.list.d/deadsnakes-ppa.list >/dev/null
-    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys \
-      F23C5A6CF475977595C89F51BA6932366A755776 >/dev/null 2>&1
-
 
     # sudo add-apt-repository ppa:deadsnakes/ppa
     PYTHON_PKGS="python3.11 python3.11-dev python3-pip python3-setuptools python3-wheel python3-tk python3.11-venv"
