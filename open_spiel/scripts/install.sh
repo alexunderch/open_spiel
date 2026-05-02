@@ -269,19 +269,13 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     # Need to special-case this until it's installed by default.
     # https://vegastack.com/tutorials/how-to-install-python-3-11-on-ubuntu-22-04/
     echo "Adding Python 3.11 ppa repos"
-    # Check if the requested version exists in default repos.
-    sudo apt-get update -qq >/dev/null 2>&1
+    
+    UBUNTU_CODENAME=$(lsb_release -cs)
+    echo "deb http://ppa.launchpad.net/deadsnakes/ppa/ubuntu ${UBUNTU_CODENAME} main" | \
+      sudo tee /etc/apt/sources.list.d/deadsnakes-ppa.list >/dev/null
+    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys \
+      F23C5A6CF475977595C89F51BA6932366A755776 >/dev/null 2>&1
 
-     if ! apt-cache show "python${OS_PYTHON_VERSION}" >/dev/null 2>&1 || \
-     ! apt-cache show "python${OS_PYTHON_VERSION}-dev" >/dev/null 2>&1 || \
-     ! apt-cache show "python${OS_PYTHON_VERSION}-venv" >/dev/null 2>&1; then
-
-      UBUNTU_CODENAME=$(lsb_release -cs)
-      echo "deb http://ppa.launchpad.net/deadsnakes/ppa/ubuntu ${UBUNTU_CODENAME} main" | \
-        sudo tee /etc/apt/sources.list.d/deadsnakes-ppa.list >/dev/null
-      sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys \
-        F23C5A6CF475977595C89F51BA6932366A755776 >/dev/null 2>&1
-    fi
 
     # sudo add-apt-repository ppa:deadsnakes/ppa
     PYTHON_PKGS="python3.11 python3.11-dev python3-pip python3-setuptools python3-wheel python3-tk python3.11-venv"
