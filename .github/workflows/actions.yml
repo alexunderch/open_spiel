@@ -80,10 +80,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Setup Julia
-        uses: julia-actions/setup-julia@v2
-        with:
-          version: '1.8'
+      # - name: Setup Julia
+      #   uses: julia-actions/setup-julia@v2
+      #   with:
+      #     version: '1.8'
 
       - name: Setup Python
         uses: actions/setup-python@v6
